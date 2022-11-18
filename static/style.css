@@ -98,6 +98,7 @@ header div {
 ion-icon {
     font-size: 24px;
     --ionicon-stroke-width: 40px;
+    cursor: pointer;
 }
 
 .container {
@@ -109,6 +110,12 @@ ion-icon {
 
 .status {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mini-container{
+    display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
@@ -116,21 +123,63 @@ ion-icon {
 }
 
 .on_hold{
-    grid-column-start: 1;
+    grid-column: 1/2;
 }
 
 .to_do{
-    grid-column-start: 2;
+    grid-column: 2/3;
 }
 
 .in_progress{
-    grid-column-start: 3;
+    grid-column: 3/4;
+    
 }
 
 .urgent{
-    grid-column-start: 4;
+    grid-column: 4/5;
 }
 
 .done{
-    grid-column-start: 5;
+    grid-column: 5/6;
+    
+}
+
+
+.task {
+    border: 1px black solid;
+    padding: 10px 20px;
+    grid-row-start: auto;
+}
+
+
+.add-form *{
+    margin-bottom: 10px;
+    width: 30vw;
+    font-weight: 600;
+}
+
+.add-form input, .add-form textarea, .add-form select {
+    outline: none;
+    border: 2px solid;
+}
+
+.add-modal {
+    margin-top: 10px;
+    border: solid 2px black;
+}
+
+.edit-form *{
+    margin-bottom: 10px;
+    width: 30vw;
+    font-weight: 600;
+}
+
+.edit-form input, .edit-form textarea, .edit-form select {
+    outline: none;
+    border: 2px solid;
+}
+
+.edit-modal {
+    margin-top: 10px;
+    border: solid 2px black;
 }

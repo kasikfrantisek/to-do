@@ -5,21 +5,77 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script src="./main-script.js" defer></script>
     <title>TO-DO app</title>
 </head>
 <body class="main-page">
     <header>
-        <div class="add-todo"><ion-icon name="add-circle-outline"></ion-icon></div>
+        <div class="add-todo"><ion-icon class="add" name="add-circle-outline"></ion-icon></div>
+        <div class="add-close hidden"><ion-icon name="close-circle-outline"></ion-icon></div>
         <div class="name"><p>USER</p></div>
-        <div class="sign-out"><ion-icon name="log-out-outline"></ion-icon></div>
+        <div class="sign-out"><ion-icon class="log-out" name="log-out-outline"></ion-icon></div>
     </header>
-    <div class="container">
-        <div class="status on_hold"><p>ON HOLD</p></div>
-        <div class="status to_do"><p>TO DO</p></div>
-        <div class="status in_progress"><p>IN PROGRESS</p></div>
-        <div class="status urgent"><p>URGENT</p></div>
-        <div class="status done"><p>DONE</p></div>
+    <div class="container hidden">
+        <div class="status on_hold">
+            <div class="mini-container">
+                <p>ON HOLD</p>
+            </div>
+        </div>
+        <div class="status to_do"><div class="mini-container">
+            <p>TO DO</p>
+        </div>
+        </div>
+        <div class="status in_progress">
+            <div class="mini-container">
+                <p>IN PROGRESS</p>
+            </div>
+        </div>
+        <div class="status urgent">
+            <div class="mini-container">
+                <p>URGENT</p>
+            </div>
+        </div>
+        <div class="status done">
+            <div class="mini-container">
+                <p>DONE</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-modal hidden">
+        <form class="add-form" id="add">
+            <label for="title">Title</label>
+            <input type="text" name="title" required>
+            <label for="body">Description</label>
+            <textarea form="add" name="body" rows="10"></textarea>
+            <label for="status">Status</label>
+            <select name="status" required>
+                <option value="on_hold">On hold</option>
+                <option value="to_do">To Do</option>
+                <option value="in_progress">In progress</option>
+                <option value="urgent">Urgent</option>
+                <option value="done">Done</option>
+            </select>
+            <input type="submit" value="Add">
+        </form>
+    </div>
+
+    <div class="edit-modal hidden">
+        <form class="edit-form" id="edit">
+            <label for="title">Title</label>
+            <input type="text" name="title" required>
+            <label for="body">Description</label>
+            <textarea form="edit" name="body" rows="10"></textarea>
+            <label for="status">Status</label>
+            <select name="status" required>
+                <option value="on_hold">On hold</option>
+                <option value="to_do">To Do</option>
+                <option value="in_progress">In progress</option>
+                <option value="urgent">Urgent</option>
+                <option value="done">Done</option>
+            </select>
+            <input type="submit" value="Edit">
+        </form>
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

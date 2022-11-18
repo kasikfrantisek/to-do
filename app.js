@@ -1,11 +1,13 @@
 const express = require('express');
 const { toNamespacedPath } = require('path');
+const cookieParser = require('cookie-parser');
 const app = express();
 const conn = require('./db');
 const port = 3000;
 
 let cors = require("cors");
 app.use(cors());
+app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
@@ -16,16 +18,15 @@ app.set('view engine', 'ejs');
 app.listen(port, () => console.log(`You are listening to port ${port}`));
 
 
-
 // POST /users
 app.post('/users', (req, res) => {
     conn.query(`SELECT * FROM users WHERE username = ?`, [req.body.username], (err, check) => {
-        if(err) throw err;
-        console.log(check)
-        if(check.length > 1){
-            res.status(400).json({'error' : 'This username is already in use.'})
-            return;
-        }
+        //if(err) throw err;
+        console.log(check.length >= 1)
+        if(check.length >= 1){
+            res.status(400).send('fakin error')
+            //throw(err);
+        } else {
         conn.query(`INSERT INTO users SET ?`, req.body, (err, user) => {
             if(err) throw err;
             conn.query(`SELECT * FROM users WHERE user_id = ?`, [user.insertId], (err, result) => {
@@ -35,6 +36,7 @@ app.post('/users', (req, res) => {
                 .status(200).json(result[0]);
             })
         })
+    }
     })
 })
 
