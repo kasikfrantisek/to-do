@@ -4,7 +4,12 @@ const app = express();
 const conn = require('./db');
 const port = 3000;
 
+let cors = require("cors");
+app.use(cors());
+
 app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+app.use('/static', express.static('static'));
 
 app.set('view engine', 'ejs');
 
@@ -44,8 +49,8 @@ app.get('/users', (req, res) => {
 })
 
 
-// GET /users/:username
-app.get('/users/:username', (req, res) => {
+// GET /user/:username
+app.get('/user/:username', (req, res) => {
     let username = req.params.username;
     conn.query(`SELECT * FROM users WHERE username = ?`, [username], (err, user) => {
         if(err) throw err;

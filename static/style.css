@@ -1,0 +1,136 @@
+.login-page{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.main-page{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.hidden{
+    display: none;
+}
+
+.show {
+    text-align: center;
+    padding: 20px 30px;
+    border: solid 2px black;
+    font-weight: 600;
+}
+
+
+.show:hover{
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.show p {
+    margin: 0;
+    padding: 0;
+}
+
+.form-container{
+    border: solid 2px black;
+    width: auto;
+}
+
+form input, form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form{
+    border: solid 2px black;
+    padding: 10px 20px;
+    font-family: sans-serif;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.username{
+    border: solid 2px black;
+}
+
+.username:focus{
+    outline: none;
+}
+
+input[type=submit]{
+    background-color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+input[type=submit]:hover {
+    background-color: black;
+    color: white;
+}
+
+header{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: solid 4px black;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 600;
+    
+}
+
+ion-icon {
+    font-size: 24px;
+    --ionicon-stroke-width: 40px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border: solid 4px black;
+}
+
+.on_hold{
+    grid-column-start: 1;
+}
+
+.to_do{
+    grid-column-start: 2;
+}
+
+.in_progress{
+    grid-column-start: 3;
+}
+
+.urgent{
+    grid-column-start: 4;
+}
+
+.done{
+    grid-column-start: 5;
+}
