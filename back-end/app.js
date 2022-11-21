@@ -136,7 +136,7 @@ rauter.put('/posts/:post_id/post', (req, res) =>{
 
 })
 
-
 app.use('/.netlify/functions/api', rauter)
 
+module.exports = app;
 module.exports.handler = serverless(app)
