@@ -1,32 +1,20 @@
 const express = require('express');
-const { toNamespacedPath } = require('path');
 const cookieParser = require('cookie-parser');
 const app = express();
 const conn = require('./db');
 const port = 3000;
-
-const serverless = require('serverless-http')
-
-
-const rauter = express.Router();
-
 let cors = require("cors");
-const { isModuleNamespaceObject } = require('util/types');
-const { builtinModules } = require('module');
 app.use(cors());
 app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
-app.use('/static', express.static('static'));
-
-app.set('view engine', 'ejs');
 
 app.listen(port, () => console.log(`You are listening to port ${port}`));
 
 
 // POST /users
-rauter.post('/users', (req, res) => {
+app.post('/users', (req, res) => {
     conn.query(`SELECT * FROM users WHERE username = ?`, [req.body.username], (err, check) => {
         if(err) throw err;
         console.log(check.length >= 1)
@@ -49,7 +37,7 @@ rauter.post('/users', (req, res) => {
 
 
 // GET /users
-rauter.get('/users', (req, res) => {
+app.get('/users', (req, res) => {
     conn.query(`SELECT * FROM users`, (err, users) => {
         if(err) throw err;
         res.setHeader('Content-type', 'application/json')
@@ -59,7 +47,7 @@ rauter.get('/users', (req, res) => {
 
 
 // GET /user/:username
-rauter.get('/user/:username', (req, res) => {
+app.get('/user/:username', (req, res) => {
     let username = req.params.username;
     conn.query(`SELECT * FROM users WHERE username = ?`, [username], (err, user) => {
         if(err) throw err;
@@ -69,7 +57,7 @@ rauter.get('/user/:username', (req, res) => {
 })
 
 //POST /posts
-rauter.post('/posts', (req, res) => {
+app.post('/posts', (req, res) => {
     conn.query(`INSERT INTO posts SET ?`, req.body, (err, posts) => {
         if(err) throw err;
         conn.query(`SELECT * FROM posts WHERE post_id = ?`, [posts.insertId], (err, post) => {
@@ -81,7 +69,7 @@ rauter.post('/posts', (req, res) => {
 })
 
 //GET /posts
-rauter.get('/posts', (req, res) => {
+app.get('/posts', (req, res) => {
     conn.query(`SELECT * FROM posts;`, (err, posts) => {
         if(err) throw err;
         res.setHeader('Content-type', 'application/json')
@@ -90,7 +78,7 @@ rauter.get('/posts', (req, res) => {
 })
 
 //GET /posts/:owner/owner
-rauter.get('/posts/:owner/owner', (req, res) =>{
+app.get('/posts/:owner/owner', (req, res) =>{
     let owner = Number(req.params.owner);
     conn.query(`SELECT * FROM posts WHERE owner = ?`, [owner], (err, posts) => {
         if(err) throw err;
@@ -100,7 +88,7 @@ rauter.get('/posts/:owner/owner', (req, res) =>{
 })
 
 //GET /posts/:post_id/post
-rauter.get('/posts/:post_id/post', (req, res) => {
+app.get('/posts/:post_id/post', (req, res) => {
     let post_id = Number(req.params.post_id);
     conn.query(`SELECT * FROM posts WHERE post_id = ?`, [post_id], (err, posts) => {
         if(err) throw err;
@@ -110,7 +98,7 @@ rauter.get('/posts/:post_id/post', (req, res) => {
 })
 
 //DELETE /posts/:post_id
-rauter.delete('/posts/:post_id', (req, res) => {
+app.delete('/posts/:post_id', (req, res) => {
     let post_id = Number(req.params.post_id);
     conn.query(`SELECT * FROM posts WHERE post_id = ?`, [post_id], (err, posts) => {
         if(err) throw err;
@@ -123,7 +111,7 @@ rauter.delete('/posts/:post_id', (req, res) => {
 })
 
 //PUT /posts/:post_id/post
-rauter.put('/posts/:post_id/post', (req, res) =>{
+app.put('/posts/:post_id/post', (req, res) =>{
     let post_id = Number(req.params.post_id);
         conn.query(`UPDATE posts SET ? WHERE post_id = ${post_id};`, req.body,  (err, post) => {
             if(err) throw err;
@@ -135,8 +123,3 @@ rauter.put('/posts/:post_id/post', (req, res) =>{
         })
 
 })
-
-app.use('/.netlify/functions/api', rauter)
-
-module.exports = app;
-module.exports.handler = serverless(app)
