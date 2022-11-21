@@ -7,7 +7,9 @@ let addClose = document.querySelector('.add-close');
 let addModal = document.querySelector('.add-modal');
 let editModal = document.querySelector('.edit-modal');
 let editForm = document.querySelector('.edit-form');
+let user = document.querySelector('.name');
 
+user.textContent = username
 
 function tasksFunctionality(){
     let tasks = document.querySelectorAll('.task');

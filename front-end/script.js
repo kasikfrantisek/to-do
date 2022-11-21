@@ -42,7 +42,11 @@ form[1].addEventListener('submit', (event) => {
             "Content-Type": "application/json"
         }
     })
-    .then((res) => res.json())
+    .then((res) =>{
+        if(res.status === 400){
+            throw(new Error('This user name is already in use')) 
+        }
+        res.json()})
     .then((obj) => {
         document.cookie = `user_id=${form[1].username.value}`
         window.location = './index.html'

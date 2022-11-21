@@ -21,11 +21,11 @@ app.listen(port, () => console.log(`You are listening to port ${port}`));
 // POST /users
 app.post('/users', (req, res) => {
     conn.query(`SELECT * FROM users WHERE username = ?`, [req.body.username], (err, check) => {
-        //if(err) throw err;
+        if(err) throw err;
         console.log(check.length >= 1)
         if(check.length >= 1){
-            res.status(400).send('fakin error')
-            //throw(err);
+            res.status(400).send(err)
+            return;
         } else {
         conn.query(`INSERT INTO users SET ?`, req.body, (err, user) => {
             if(err) throw err;
