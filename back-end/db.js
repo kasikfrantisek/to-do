@@ -1,12 +1,10 @@
 const { builtinModules } = require('module');
-let mysql = require('mysql');
+require('dotenv').config()
+//const mysql = require('mysql');
 
-let conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'to_do',
-  });
+const mysql = require('mysql2')
+const conn = mysql.createConnection(process.env.DATABASE_URL)
+
 
   conn.connect((err) => {
     if (err) {
